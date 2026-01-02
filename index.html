@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YudzHost</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --blue-1: #1e3a8a;
+  --blue-2: #2563eb;
+  --blue-3: #3b82f6;
+  --blue-light: #60a5fa;
+  --accent: #93c5fd;
+  --glass:rgba(255,255,255,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;width:100%;overflow-x:hidden;}
+body{
+  font-family:'Poppins',sans-serif;
+  background: #000000;
+  color:#e0f2fe;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  touch-action:pan-y;
+  overscroll-behavior-x:none;
+  padding:20px;
+  min-height:100vh;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:680px;
+  margin:20px auto;
+  padding:24px;
+  border-radius:20px;
+  background:rgba(15,23,42,0.5);
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 35px rgba(30,58,138,0.6);
+  text-align:center;
+  transition:all .3s;
+  border:2px solid rgba(59,130,246,0.6);
+  max-height:90vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.container::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  left:-50%;
+  top:-50%;
+  opacity:.04;
+  pointer-events:none;
+  background:conic-gradient(from 0deg,var(--blue-1),var(--blue-2),var(--blue-1));
+  animation:spin 16s linear infinite;
+  border-radius:30%;
+}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.slider-container{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-radius:14px;
+  border: 2px solid rgba(59,130,246,0.6);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  margin-bottom:18px;
+  box-shadow:0 8px 25px rgba(30,58,138,0.5);
+}
+
+.slider-wrapper{
+  display:flex;
+  width:100%;
+  height:100%;
+  transition:transform 0.3s ease;
+}
+
+.slider-item{
+  width:100%;
+  height:100%;
+  flex: 0 0 100%;
+  position:relative;
+}
+
+.slider-item img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(110%) contrast(1.04);
+  user-select:none;
+  -webkit-user-drag:none;
+  border-radius:14px;
+}
+
+/* Bagian Style Tambahan */
+.channel-section{
+  margin-bottom:16px;
+  padding:10px;
+  border-radius:10px;
+  background:rgba(15,23,42,0.7);
+  border:2px solid rgba(59,130,246,0.6);
+}
+.channel-link{
+  display:block;
+  color:var(--blue-light);
+  text-decoration:none;
+  font-weight:600;
+  margin-top:8px;
+}
+.channel-link:hover{
+  color:var(--accent);
+  text-decoration:underline;
+}
+
+.small-btn{
+  display:inline-block;
+  width:auto;
+  padding:8px 16px;
+  font-size:14px;
+  margin:0;
+}
+
+h2{
+  font-family:'Orbitron',sans-serif;
+  font-size:17px;
+  color:#ffffff;
+  margin:16px auto 24px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-shadow:0 6px 18px rgba(59,130,246,0.3);
+  background:linear-gradient(90deg,var(--blue-1),var(--blue-2));
+  padding:14px 20px;
+  border-radius:10px;
+  box-shadow:0 8px 24px rgba(37,99,235,0.3);
+  border:2px solid rgba(59,130,246,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:300px;
+}
+
+.input-wrap{
+  display:flex;
+  align-items:center;
+  background:rgba(15,23,42,0.7);
+  border:2px solid rgba(59,130,246,0.6);
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:18px;
+  transition:0.2s;
+}
+.input-wrap:focus-within{
+  border-color:var(--blue-2);
+  box-shadow:0 6px 20px rgba(37,99,235,0.15);
+}
+.input-wrap i{
+  color:var(--blue-light);
+  margin-right:10px;
+  font-size:18px;
+}
+.input-wrap input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:#e0f2fe;
+  font-size:15px;
+}
+.input-wrap input::placeholder{
+  color:rgba(224,242,254,0.4);
+}
+
+.btn{
+  display:block;
+  width:100%;
+  margin:8px 0;
+  padding:14px 20px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  background:linear-gradient(90deg,var(--blue-1),var(--blue-2));
+  color:#fff;
+  transition:all 0.12s ease;
+  box-shadow:0 8px 24px rgba(37,99,235,0.3);
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 40px rgba(37,99,235,0.4);
+}
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+#sideMenu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 220px;
+  height: 100vh;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(12px);
+  border-right:2px solid rgba(59,130,246,0.6);
+  padding: 20px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  transition: 0.3s;
+  z-index:9;
+  box-shadow:4px 0 20px rgba(30,58,138,0.6);
+}
+#sideMenu h3{
+  color:var(--blue-light);
+  font-family:'Orbitron',sans-serif;
+  margin-bottom:15px;
+  text-shadow:0 4px 12px rgba(59,130,246,0.4);
+  text-align:center;
+}
+#sideMenu .menu-list-title{
+  color:var(--accent);
+  font-size:13px;
+  font-weight:600;
+  margin-top:10px;
+  margin-bottom:5px;
+  padding-left:5px;
+}
+#sideMenu a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:rgba(59,130,246,0.2);
+  border:2px solid rgba(59,130,246,0.6);
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+  font-weight:500;
+  text-decoration:none;
+  font-size:14px;
+}
+#sideMenu a:hover{ 
+  background:rgba(59,130,246,0.3);
+  transform:translateX(5px);
+}
+
+#overlay {
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.6);
+  z-index:8;
+  display:none;
+}
+
+.toast{
+  position:fixed;
+  right:18px;
+  top:18px;
+  z-index:9999;
+  background:linear-gradient(180deg,rgba(15,23,42,0.95),rgba(30,41,59,0.9));
+  color:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.6);
+  border:2px solid var(--blue-light);
+  opacity:0;
+  transform:translateY(-8px);
+  transition:opacity .18s,transform .18s;
+  font-weight:600;
+}
+.toast.show{opacity:1;transform:translateY(0);}
+
+.loader{
+  border:3px solid rgba(255,255,255,0.1);
+  border-top:3px solid var(--blue-3);
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  animation:spinLoader 1s linear infinite;
+  margin:10px auto;
+  display:none;
+}
+@keyframes spinLoader{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+.result-box{
+  margin-top:18px;
+  padding:12px;
+  border-radius:12px;
+  background:rgba(15,23,42,0.7);
+  border:2px solid rgba(59,130,246,0.6);
+  display:none;
+}
+.result-box img{
+  max-width:100%;
+  border-radius:8px;
+  margin-bottom:10px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+<body>
+<div id="sideMenu">
+  <h3>YudzHost</h3>
+  
+  <!-- List Website Saja, Tombol Kembali Sudah Dihapus -->
+  <div class="menu-list-title">PROJECT</div>
+  <a href="https://join-syifa-teams.vercel.app/" target="_blank">
+    <i class="fas fa-globe"></i> Syifa Teams
+  </a>
+</div>
+
+<div id="overlay"></div>
+
+<div class="container">
+  <div class="slider-container" id="sliderContainer">
+    <div class="slider-wrapper" id="sliderWrapper">
+      <div class="slider-item"><img src="https://files.catbox.moe/an2paf.jpeg" alt="Image 1"></div>
+      <div class="slider-item"><img src="https://files.catbox.moe/mlh5ys.jpeg" alt="Image 2"></div>
+      <div class="slider-item"><img src="https://files.catbox.moe/kh5tgf.jpeg" alt="Image 3"></div>
+      <div class="slider-item"><img src="https://files.catbox.moe/91kt4a.jpeg" alt="Image 4"></div>
+      <div class="slider-item"><img src="https://files.catbox.moe/ti3ivu.jpeg" alt="Image 5"></div>
+    </div>
+  </div>
+
+  <!-- Bagian Tombol Buka Menu & Link Saluran Owner -->
+  <div class="channel-section">
+    <button class="btn small-btn" onclick="openMenu()">
+      <i class="fas fa-bars"></i> MENU
+    </button>
+    <a href="https://whatsapp.com/channel/0029Vb7GvRI9hXF6P9zb1e2H" target="_blank" class="channel-link">
+      <i class="fab fa-whatsapp"></i> JOIN SALURAN OWNER
+    </a>
+  </div>
+  
+  <h2><i class="fa-solid fa-image"></i> BRAT GENERATOR</h2>
+
+  <div class="input-wrap">
+    <i class="fa-solid fa-keyboard"></i>
+    <input type="text" id="textInput" placeholder="Ketik teks disini..." maxlength="100">
+  </div>
+
+  <button class="btn" id="generateBtn" onclick="generateBrat()">
+    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Brat
+  </button>
+  
+  <div class="loader" id="loader"></div>
+
+  <div id="result" class="result-box">
+    <p style="color:var(--blue-light);margin-bottom:10px;"><i class="fas fa-check-circle"></i> Hasil Brat:</p>
+    <img id="resultImg" src="" alt="Brat Result">
+    <button class="btn" onclick="downloadImage()">
+      <i class="fa-solid fa-download"></i> Download Brat
+    </button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const toast=document.getElementById("toast");
+function showToast(msg,ms=2200){
+  toast.textContent=msg;
+  toast.classList.add("show");
+  clearTimeout(toast._timer);
+  toast._timer=setTimeout(()=>toast.classList.remove("show"),ms);
+}
+
+// Fungsi Slider
+document.addEventListener('DOMContentLoaded', function () {
+  const sliderWrapper = document.getElementById('sliderWrapper');
+  const sliderContainer = document.getElementById('sliderContainer');
+  const slides = document.querySelectorAll('.slider-item');
+  let currentIndex = 0;
+  let startX = 0;
+  let isDragging = false;
+
+  function updateSlider() {
+    sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  function goToSlide(index) {
+    currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+    updateSlider();
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlider();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlider();
+  }
+
+  // Event untuk sentuhan (mobile)
+  sliderContainer.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  sliderContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+  }, { passive: false });
+
+  sliderContainer.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? nextSlide() : prevSlide();
+    }
+    isDragging = false;
+  });
+
+  // Event untuk klik (desktop)
+  sliderContainer.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    isDragging = true;
+    e.preventDefault();
+  });
+
+  sliderContainer.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+  });
+
+  sliderContainer.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    const endX = e.clientX;
+    const diff = startX - endX;
+    
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? nextSlide() : prevSlide();
+    }
+    isDragging = false;
+  });
+
+  sliderContainer.addEventListener('mouseleave', () => {
+    isDragging = false;
+  });
+
+  // Auto slide setiap 5 detik
+  setInterval(nextSlide, 5000);
+});
+
+// Fungsi Menu Samping
+const sideMenu = document.getElementById('sideMenu');
+const overlay = document.getElementById('overlay');
+
+function openMenu() {
+  sideMenu.style.left = '0px';
+  overlay.style.display = 'block';
+}
+
+function closeMenu() {
+  sideMenu.style.left = '-260px';
+  overlay.style.display = 'none';
+}
+
+overlay.addEventListener('click', closeMenu);
+
+// Enter Key untuk Generate
+document.getElementById('textInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    generateBrat();
+  }
+});
+
+// Variabel untuk menyimpan URL gambar hasil
+let currentImageUrl = null;
+
+// Fungsi Generate Brat
+async function generateBrat() {
+  const text = document.getElementById('textInput').value.trim();
+  
+  if (!text) {
+    showToast("Masukkan Teks Terlebih Dahulu!");
+    return;
+  }
+  
+  const loader = document.getElementById('loader');
+  const generateBtn = document.getElementById('generateBtn');
+  const resultBox = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  
+  try {
+    generateBtn.disabled = true;
+    loader.style.display = 'block';
+    resultBox.style.display = 'none';
+    showToast("Sedang Membuat Brat...");
+    
+    const apiUrl = `https://api.siputzx.my.id/api/m/brat?text=${encodeURIComponent(text)}&isVideo=false&delay=500`;
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) throw new Error('Gagal Mengambil Brat Dari API');
+    
+    const blob = await response.blob();
+    currentImageUrl = URL.createObjectURL(blob);
+    
+    resultImg.src = currentImageUrl;
+    resultBox.style.display = 'block';
+    showToast("Brat Berhasil Dibuat!");
+    
+  } catch (err) {
+    console.error(err);
+    showToast("Gagal Membuat Brat!");
+  } finally {
+    loader.style.display = 'none';
+    generateBtn.disabled = false;
+  }
+}
+
+// Fungsi Download Gambar
+async function downloadImage() {
+  if (!currentImageUrl) return;
+  
+  try {
+    const text = document.getElementById('textInput').value.trim();
+    const filename = `brat_${text.substring(0, 20).replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.png`;
+    
+    const a = document.createElement('a');
+    a.href = currentImageUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    
+    showToast("Brat Berhasil Di Download!");
+  } catch (err) {
+    console.error(err);
+    showToast("Gagal Download Brat!");
+  }
+}
+</script>
+</body>
+</html>
+
