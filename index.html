@@ -326,6 +326,9 @@ h2{
   <a href="https://join-syifa-teams.vercel.app/" target="_blank">
     <i class="fas fa-globe"></i> Syifa Teams
   </a>
+  <a href="https://pin-downloader-new.vercel.app/" target="_blank"> <!-- Ganti # dengan URL sebenarnya dari PIN DOWNLOADER -->
+    <i class="fas fa-download"></i> PIN DOWNLOADER
+  </a>
 </div>
 
 <div id="overlay"></div>
@@ -424,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { passive: false });
 
   sliderContainer.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
+    if (!isDragging) return
     const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
     
@@ -556,4 +559,3 @@ async function downloadImage() {
 </script>
 </body>
 </html>
-
